@@ -75,6 +75,7 @@ public class TownyLayerManager implements LayerManager {
     // Icon Registry Keys
     private final String TOWN_ICON = "towny_town_icon";
     private final String CAPITAL_ICON = "towny_capital_icon";
+    private final String NATION_ICON = "towny_nation_icon";
     private final String OUTPOST_ICON = "towny_outpost_icon";
 
     private final String TOWN_KEY_PREFIX = "town_";
@@ -137,6 +138,10 @@ public class TownyLayerManager implements LayerManager {
         BufferedImage capitalIcon = plugin.config().loadCapitalIcon(plugin.getLogger());
         if (capitalIcon != null)
             platform.registerIcon(CAPITAL_ICON, capitalIcon, iconHeight, iconWidth);
+        
+        BufferedImage nationIcon = plugin.config().loadNationIcon(plugin.getLogger());
+        if (nationIcon != null)
+            platform.registerIcon(NATION_ICON, nationIcon, iconHeight, iconWidth);
 
         BufferedImage outpostIcon = plugin.config().loadOutpostIcon(plugin.getLogger());
         if (outpostIcon != null) {
@@ -280,7 +285,7 @@ public class TownyLayerManager implements LayerManager {
                     }
                 }
 
-                final String homeBlockIconKey = tre.isCapital() ? CAPITAL_ICON : TOWN_ICON;
+                final String homeBlockIconKey = tre.hasNation() ? (tre.isCapital() ? CAPITAL_ICON : NATION_ICON) : TOWN_ICON;
 
                 // Call event
                 WorldRenderTownEvent event = new WorldRenderTownEvent(worldName, tre.getTownName(), tre.getTownUUID(),
@@ -476,6 +481,9 @@ public class TownyLayerManager implements LayerManager {
 
         if (mapPlatform.hasIcon(CAPITAL_ICON))
             mapPlatform.unregisterIcon(CAPITAL_ICON);
+        
+        if (mapPlatform.hasIcon(NATION_ICON))
+            mapPlatform.unregisterIcon(NATION_ICON);
 
         if (mapPlatform.hasIcon(OUTPOST_ICON))
             mapPlatform.unregisterIcon(OUTPOST_ICON);

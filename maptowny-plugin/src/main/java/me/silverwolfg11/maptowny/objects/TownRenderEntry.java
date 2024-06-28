@@ -48,6 +48,7 @@ public class TownRenderEntry {
     private final UUID townUUID;
     private final String townName;
     private final boolean capital;
+    private final boolean nation;
 
     private final Color nationColor;
     private final Color townColor;
@@ -67,6 +68,7 @@ public class TownRenderEntry {
         this.townUUID = town.getUUID();
         this.townName = town.getName();
         this.capital = town.isCapital();
+        this.nation = town.hasNation();
 
         this.clickText = clickText;
         this.hoverText = hoverText;
@@ -94,6 +96,9 @@ public class TownRenderEntry {
 
     public boolean isCapital() {
         return capital;
+    }
+    public boolean hasNation() {
+        return nation;
     }
 
     @NotNull
